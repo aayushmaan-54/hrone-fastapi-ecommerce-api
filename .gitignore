@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info/
+.env
+!.env.sample
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+
+# MongoDB (if local)
+data/
+
+# IDE (uncomment your choice)
+#.vscode/
+#.idea/
+
+# Optional: Add if you use these tools
+# docs/_build/  # Sphinx
+# .mypy_cache/  # MyPy
+# poetry.lock   # Poetry
