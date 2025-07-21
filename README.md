@@ -151,7 +151,7 @@ A simple, asynchronous E-commerce backend built with **FastAPI**, **Motor** (Mon
 
 ## 🚀 Deployment
 Deployed on **Render**
-👉 [View it here](https://fastapi-ecom-api.onrender.com)
+👉 [View it here](https://fastapi-ecom-api.onrender.com/docs)
 
 ---
 
