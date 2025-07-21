@@ -1,25 +1,24 @@
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 from app.api.routes.products import router as product_router
 from app.api.routes.orders import router as order_router
-
-from fastapi import FastAPI
-from app.api.routes.products import router as product_router
 from app.db.db import connect_to_mongo, close_mongo_connection
+
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+  await connect_to_mongo()
+  yield
+  await close_mongo_connection()
+
 
 app = FastAPI(
   title="E-commerce API",
   description="API for managing products and orders",
-  version="1.0.0"
+  version="1.0.0",
+  lifespan=lifespan
 )
-
-@app.on_event("startup")
-async def startup_event():
-  await connect_to_mongo()
-
-@app.on_event("shutdown")
-async def shutdown_event():
-  await close_mongo_connection()
-
 
 
 app.include_router(product_router)

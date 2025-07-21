@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Database:
-    client: AsyncIOMotorClient = None
-    db: AsyncIOMotorDatabase = None
+  client: AsyncIOMotorClient = None
+  db: AsyncIOMotorDatabase = None
 
 db = Database()
 
@@ -29,6 +29,7 @@ async def close_mongo_connection():
 
 def get_database() -> AsyncIOMotorDatabase:
   return db.db
+
 
 def get_product_collection():
   return db.db.get_collection("products")

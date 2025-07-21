@@ -3,6 +3,7 @@ import random
 from app.db.db import connect_to_mongo, close_mongo_connection, get_database
 
 
+
 async def seed_products():
   print("🌱 Starting database seeding...")
 
@@ -72,37 +73,41 @@ async def seed_products():
   result = await product_collection.insert_many(products_data)
   print(f"✅ Inserted {len(result.inserted_ids)} products.")
 
+
+
 async def seed_orders():
-    print("🌱 Starting order seeding...")
-    db = get_database()
-    if db is None:
-        print("❌ Database connection not found. Aborting.")
-        return
+  print("🌱 Starting order seeding...")
+  db = get_database()
+  if db is None:
+      print("❌ Database connection not found. Aborting.")
+      return
 
-    order_collection = db["orders"]
-    product_collection = db["products"]
+  order_collection = db["orders"]
+  product_collection = db["products"]
 
-    await order_collection.delete_many({})
-    print("🗑️  Cleared existing orders collection.")
+  await order_collection.delete_many({})
+  print("🗑️  Cleared existing orders collection.")
 
-    product_ids = await product_collection.find({}, {"_id": 1}).to_list(length=None)
-    product_ids = [p["_id"] for p in product_ids]
+  product_ids = await product_collection.find({}, {"_id": 1}).to_list(length=None)
+  product_ids = [p["_id"] for p in product_ids]
 
-    orders_data = []
-    for _ in range(50):
-        order_items = []
-        for _ in range(random.randint(1, 5)):
-            order_items.append({
-                "productId": random.choice(product_ids),
-                "qty": random.randint(1, 10)
-            })
-        orders_data.append({
-            "userId": f"user{random.randint(1, 10)}",
-            "items": order_items
-        })
+  orders_data = []
+  for _ in range(50):
+    order_items = []
+    for _ in range(random.randint(1, 5)):
+      order_items.append({
+        "productId": random.choice(product_ids),
+        "qty": random.randint(1, 10)
+      })
 
-    result = await order_collection.insert_many(orders_data)
-    print(f"✅ Inserted {len(result.inserted_ids)} orders.")
+      orders_data.append({
+        "userId": f"user{random.randint(1, 10)}",
+        "items": order_items
+      })
+
+  result = await order_collection.insert_many(orders_data)
+  print(f"✅ Inserted {len(result.inserted_ids)} orders.")
+
 
 
 async def main():

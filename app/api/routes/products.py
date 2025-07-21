@@ -12,11 +12,11 @@ router = APIRouter(
 
 
 @router.post(
-    "/",
-    response_model=ProductCreateResponse,
-    status_code=status.HTTP_201_CREATED,
-    summary="Create a new product",
-    description="Adds a new product to the database"
+  "/",
+  response_model=ProductCreateResponse,
+  status_code=status.HTTP_201_CREATED,
+  summary="Create a new product",
+  description="Adds a new product to the database"
 )
 async def create_product(product: ProductCreate = Body(...)):
   product_collection = get_product_collection()

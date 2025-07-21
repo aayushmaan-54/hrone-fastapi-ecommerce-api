@@ -20,6 +20,7 @@ class ProductCreateResponse(BaseModel):
   id: str
 
 
+
 # List Products API
 class ProductPublic(BaseModel):
   id: str
